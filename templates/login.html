@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+
+            <div class="d-flex w-100 justify-content-between align-items-center">
+
+                <a class="navbar-brand" href="index.html" style="font-size: 25px">AskPupkin</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">ASK!</button>
+                </form>
+
+                <div>
+                    <a href="login.html">log in</a>
+                    <a href="signup.html">register</a>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+
+    <main class="container mt-3">
+        <div class="d-flex gap-3 align-items-center">
+
+            <h1>Log In</h1>
+
+        </div>
+
+        <div class="row">
+            <div class="col-9">
+                <div class="d-flex flex-column gap-3">
+
+                    <div class="alert alert-danger mt-3" role="alert">
+                        Sorry, wrong password!
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="staticEmail" class="col-sm-2 col-form-label">Login</label>
+                        <div class="col-sm-3">
+                            <input type="email" class="form-control" id="exampleFormControlInput1"
+                                placeholder="dr_pepper">
+                        </div>
+                    </div>
+
+
+                    <div class="mb-3 row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-3">
+                            <input type="password" class="form-control" id="inputPassword" placeholder="********">
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-3">
+                            <button class="btn btn-outline-success" type="submit">Log in!</button>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="inputPassword" class="col-sm-2 col-form-label"></label>
+                        <div class="col-sm-3">
+                            <a href="signup.html">create new account</a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col">
+                <section class="mb-3">
+                    <h2>Popular Tags</h2>
+                    <div>
+                        <span class="badge text-bg-primary">Primary</span>
+                        <span class="badge text-bg-secondary">Secondary</span>
+                        <span class="badge text-bg-success">Success</span>
+                        <span class="badge text-bg-danger">Danger</span>
+                        <span class="badge text-bg-warning">Warning</span>
+                        <span class="badge text-bg-info">Info</span>
+                        <span class="badge text-bg-light">Light</span>
+                        <span class="badge text-bg-dark">Dark</span>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Best Members</h2>
+                    <div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><a href="">Member</a></li>
+                            <li class="list-group-item"><a href="">Member</a></li>
+                            <li class="list-group-item"><a href="">Member</a></li>
+                            <li class="list-group-item"><a href="">Member</a></li>
+                            <li class="list-group-item"><a href="">Member</a></li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+
+    </main>
+
+    <footer class="py-3 my-4" style="position: fixed; bottom: 0; width: 100%;">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="index.html" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item"><a href="ask.html" class="nav-link px-2 text-muted">Ask</a></li>
+            <li class="nav-item"><a href="settings.html" class="nav-link px-2 text-muted">Settings</a></li>
+        </ul>
+        <p class="text-center text-muted"><a href="https://education.vk.company/">© 2024 VK Education</a></p>
+    </footer>
+
+    <script src="../static/js/bootstrap.min.js"></script>
+</body>
+
+</html>
