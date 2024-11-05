@@ -1,0 +1,56 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="col-9">
+        <div class="d-flex flex-column gap-3">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="mb-2">
+                            <img src="https://placehold.co/200x200" alt="Avatar" class="img-fluid">
+                        </div>
+
+                        <input class="form-control w-25" type="number" value="0" placeholder="Default input"
+                               aria-label="default input example">
+
+                    </div>
+
+                    <div class="col">
+                        <h5 class="card-title fs-1">Big and important question? #{{ item.id }}</h5>
+                        <p class="card-text mt-3">Radiohead signed to EMI in 1991 and released their debut album, Pablo
+                            Honey, in 1993. Their debut single, "Creep", was a worldwide hit, and their popularity and
+                            critical standing rose with The Bends in 1995. Their third album, OK Computer (1997), is
+                            acclaimed as a landmark record and one of the best albums in popular music, with complex
+                            production and themes of modern alienation. Their fourth album, Kid A (2000), marked a
+                            dramatic change in style, incorporating influences from electronic music, jazz, classical
+                            music and krautrock. Though Kid A divided listeners, it was later named the best album of
+                            the decade by multiple outlets. It was followed by Amnesiac (2001), recorded in the same
+                            sessions. Hail to the Thief (2003), with lyrics addressing the war on terror, blended the
+                            band's rock and electronic sides, and was Radiohead's final album for EMI.</p>
+                        <div>
+                            Tags:
+                            {% for tag in tags %}
+                                <a href="{% url 'tag' tag.title %}" style="margin-left: auto"
+                                   class="card-link">{{ tag.title }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <hr class="my-3">
+            {% for answer in answers %}
+                {% include 'layouts/answer_card.html' %}
+            {% endfor %}
+            <hr class="my-3">
+            <textarea class="form-control" id="questionForm" rows="7"
+                      placeholder="Text of the question"></textarea>
+            <div>
+                <button class="btn btn-outline-success" type="submit">Answer</button>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}
