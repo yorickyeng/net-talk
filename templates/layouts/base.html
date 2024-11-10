@@ -39,13 +39,13 @@
                 <button class="btn btn-outline-success" type="submit">ASK!</button>
             </form>
 
-            {% if user.is_authenticated %} <!--на будущее-->
+            {% if 1 == 1 %} <!-- if user.is_authenticated (на будущее) -->
                 <div class="d-flex gap-1" id="">
                     <img src="asda.jpg" alt="Avatar" class="img-thumbnail">
                     <div>
                         <div>Dr. Pepper</div>
                         <a href="{% url 'settings' %}">settings</a>
-                        <a href="{% url 'logout' %}">log out</a>
+                        <a href="{% url 'login' %}">log out</a>
                     </div>
                 </div>
             {% else %}
@@ -102,7 +102,7 @@
     <p class="text-center text-muted"><a href="https://education.vk.company/">© 2024 VK Education</a></p>
 </footer>
 
-<script src="../static/js/bootstrap.min.js"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 
 </html>
