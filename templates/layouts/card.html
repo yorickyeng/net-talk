@@ -8,22 +8,22 @@
                 <div class="mb-2">
                     <img src="https://placehold.co/100x100" alt="Avatar" class="img-fluid">
                 </div>
-                <input class="form-control w-75" type="number" value="0" placeholder=""
+                <input class="form-control w-75" type="number" value="{{ question.likes.count }}" placeholder=""
                        aria-label="default input example">
             </div>
 
             <div class="col-10">
                 <h5 href="question.html" class="card-title">
-                    <a href="{% url 'one_question' question.id %}">{{ question.title }}</a>
+                    <a href="{% url 'one_question' question.id %}">{{ question.name }}</a>
                 </h5>
-                <p class="card-text">{{ question.text }}</p>
+                <p class="card-text">{{ question.question }}</p>
                 <div class="d-flex gap-5">
-                    <a href="{% url 'one_question' question.id %}" class="card-link">Answer(3)</a>
+                    <a href="{% url 'one_question' question.id %}" class="card-link">Answer({{ question.answers.count }})</a>
                     <div>
                         Tags:
-                        {% for tag in tags %}
-                            <a href="{% url 'tag' tag.title %}" style="margin-left: auto"
-                               class="card-link">{{ tag.title }}</a>
+                        {% for tag in question.tags.all %}
+                            <a href="{% url 'tag' tag.name %}" style="margin-left: auto"
+                               class="card-link">{{ tag.name }}</a>
                         {% endfor %}
                     </div>
                 </div>

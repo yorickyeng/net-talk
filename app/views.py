@@ -1,96 +1,100 @@
-import copy
+from django.contrib.auth.models import User
+from django.shortcuts import render, get_object_or_404
+from app.models import Question, Tag, Answer, get_random_users, get_popular_tags
+from app.utils import paginate
 
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.shortcuts import render
 
-QUESTIONS = [
-    {
-        'title': f'Title {i}',
-        'id': i,
-        'text': f'This is text for question #{i}'
-    } for i in range(30)
-]
-TAGS = [
-    {'title': 'blablabla', 'id': 1},
-    {'title': 'interesting', 'id': 2},
-    {'title': 'stupid', 'id': 3},
-]
-ANSWERS = [
-    {'id': i} for i in range(3)
-]
+def user_profile(request, user_id):
+    user = User.objects.get(id=user_id)
+    return render(request, '404.html', {'user': user})  # На будущее
+
+
+def get_common_context(request):
+    random_users = get_random_users()
+    popular_tags = get_popular_tags()
+    tags = Tag.objects.all()
+    return {
+        'random_users': random_users,
+        'popular_tags': popular_tags,
+        'tags': tags
+    }
 
 
 def index(request):
-    page = paginate(QUESTIONS, request)
-    return render(
-        request, 'index.html',
-        context={'questions': page.object_list, 'page_obj': page, 'tags': TAGS, 'custom_title': 'New Questions'}
-    )
+    questions = Question.objects.new()
+    page = paginate(questions, request)
+
+    context = get_common_context(request)
+    context.update({
+        'questions': page.object_list,
+        'page_obj': page,
+        'custom_title': 'New Questions'
+    })
+    return render(request, 'index.html', context)
 
 
 def hot(request):
-    hot_questions = copy.deepcopy(QUESTIONS)
-    hot_questions.reverse()
-    page = paginate(hot_questions, request)
-    return render(
-        request, 'hot.html',
-        context={'questions': page.object_list, 'page_obj': page, 'tags': TAGS, 'custom_title': 'Hot Questions'}
-    )
+    questions = Question.objects.hot()
+    page = paginate(questions, request)
+
+    context = get_common_context(request)
+    context.update({
+        'questions': page.object_list,
+        'page_obj': page,
+        'custom_title': 'Hot Questions'
+    })
+    return render(request, 'hot.html', context)
 
 
 def question(request, question_id):
-    one_question = QUESTIONS[question_id]
-    return render(
-        request, 'question.html',
-        context={'item': one_question, 'answers': ANSWERS, 'tags': TAGS, 'custom_title': 'Question ' + str(question_id)}
-    )
+    question_obj = get_object_or_404(Question, id=question_id)
+    answers = Answer.objects.filter(question=question_obj)
+    tags = question_obj.tags.all()
+
+    context = get_common_context(request)
+    context.update({
+        'question': question_obj,
+        'answers': answers,
+        'tags': tags,
+        'custom_title': f'Question {question_id}'
+    })
+    return render(request, 'question.html', context)
 
 
 def tag(request, tag_name):
-    page = paginate(QUESTIONS, request)
-    return render(
-        request, 'tag.html',
-        context={'tag_name': tag_name, 'tags': TAGS, 'questions': page.object_list, 'page_obj': page,
-                 'custom_title': 'Tag: ' + str(tag_name)}
-    )
+    tag_obj = get_object_or_404(Tag, name=tag_name)
+    questions = tag_obj.question.all()
+    page = paginate(questions, request)
+
+    context = get_common_context(request)
+    context.update({
+        'tag_name': tag_name,
+        'questions': page.object_list,
+        'page_obj': page,
+        'custom_title': f'Tag: {tag_name}'
+    })
+    return render(request, 'tag.html', context)
 
 
 def login(request):
-    return render(
-        request, 'login.html',
-        context={'tags': TAGS, 'custom_title': 'Login'}
-    )
+    context = get_common_context(request)
+    context.update({'custom_title': 'Login'})
+    return render(request, 'login.html', context)
 
 
 def signup(request):
-    return render(
-        request, 'signup.html',
-        context={'tags': TAGS, 'custom_title': 'Signup'}
-    )
+    context = get_common_context(request)
+    context.update({'custom_title': 'Signup'})
+    return render(request, 'signup.html', context)
 
 
 def settings(request):
-    return render(
-        request, 'settings.html',
-        context={'tags': TAGS, 'custom_title': 'Settings'}
-    )
+    context = get_common_context(request)
+    context.update({'custom_title': 'Settings'})
+    return render(request, 'settings.html', context)
 
 
 def ask(request):
-    return render(
-        request, 'ask.html',
-        context={'tags': TAGS, 'custom_title': 'New Question'}
-    )
-
-
-def paginate(objects_list, request, per_page=5):
-    paginator = Paginator(objects_list, per_page)
-    page_num = int(request.GET.get('page', 1))
-
-    try:
-        page = paginator.page(page_num)
-    except PageNotAnInteger:
-        page = paginator.page(1)
-    except EmptyPage:
-        page = paginator.page(paginator.num_pages)
-    return page
+    context = get_common_context(request)
+    context.update({'custom_title': 'New Question'})
+    return render(request, 'ask.html', context)

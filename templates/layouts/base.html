@@ -39,11 +39,11 @@
                 <button class="btn btn-outline-success" type="submit">ASK!</button>
             </form>
 
-            {% if 1 == 1 %} <!-- if user.is_authenticated (на будущее) -->
+            {% if user.is_authenticated %}
                 <div class="d-flex gap-1" id="">
-                    <img src="asda.jpg" alt="Avatar" class="img-thumbnail">
+                    <img src="{{ user.avatar }}" alt="Avatar" class="img-thumbnail">
                     <div>
-                        <div>Dr. Pepper</div>
+                        <div>{{ user.username }}</div>
                         <a href="{% url 'settings' %}">settings</a>
                         <a href="{% url 'login' %}">log out</a>
                     </div>
@@ -68,23 +68,25 @@
             <section class="mb-3">
                 <h2>Popular Tags</h2>
                 <div>
-                    {% for tag in tags %}
+                    {% for tag in popular_tags %}
                         <span class="badge text-bg-light">
-                            <a href="{% url 'tag' tag.title %}">{{ tag.title }}</a>
+                            <a href="{% url 'tag' tag.name %}">{{ tag.name }}</a>
                         </span>
                     {% endfor %}
                 </div>
             </section>
 
             <section>
-                <h2>Best Members</h2>
+                <h2>Random Users</h2>
                 <div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><a href="">Member</a></li>
-                        <li class="list-group-item"><a href="">Member</a></li>
-                        <li class="list-group-item"><a href="">Member</a></li>
-                        <li class="list-group-item"><a href="">Member</a></li>
-                        <li class="list-group-item"><a href="">Member</a></li>
+                        {% for user in random_users %}
+                            <li class="list-group-item">
+                                <a href="{% url 'user_profile' user.id %}">{{ user.username }}</a>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">No members available.</li>
+                        {% endfor %}
                     </ul>
                 </div>
             </section>
