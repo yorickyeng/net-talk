@@ -51,10 +51,13 @@ def question(request, question_id):
     answers = Answer.objects.filter(question=question_obj)
     tags = question_obj.tags.all()
 
+    page = paginate(answers, request)
+
     context = get_common_context(request)
     context.update({
         'question': question_obj,
-        'answers': answers,
+        'answers': page.object_list,
+        'page_obj': page,
         'tags': tags,
         'custom_title': f'Question {question_id}'
     })
